@@ -152,6 +152,52 @@
 
 #### 	7、MutableState
 
+![image-20220928153149153](C:\Users\Ywhuii\Documents\Jetpack Compose\代码图片示例\image-20220928153149153.png)
+
 ###### 	1、此函数使用remember向自身添加内存，然后在内存中存储mutableStateOf，以创建MutableState<String>，这是一种提供可观察状态容器的内置Compose类型
 
 ###### 	2、对value进行的任何更改都会自动重组用于读取此状态的所有可组合函数
+
+###### 	3、通过以下MutableState三种方式声明一个可组合对象：
+
+​			val state = remember{ mutableStateOf(default) }
+
+​			var value by remember{ mutableStateOf(default) }
+
+​			val(value,setValue) = remember{ mutableStateOf(default) }
+
+###### 	4、在组合中创建State<T>（或其他有状态对象时），请务必对其执行remember操作，否则它会在每次重组时重新初始化
+
+###### 	5、MutableState<T>类似于MutableLiveData<T>，但与Compose运行时集成。由于它是可观察的，它会在更新时通知Compose
+
+​	
+
+#### 8、软键盘	（例子见：JetoackComposeState Todo.two包）
+
+###### 	1、keyboardOptions：用于启用显示完成IME操作
+
+###### 	2、keyboardActions：用于指定响应出发的特定IME操作而触发的操作—在我们的例子中，一旦按下Done，我们希望submit被调用并隐藏键盘
+
+
+
+#### 9、状态恢复
+
+​	在重新创建Activity或进程后，我们可以使用rememberSaveable恢复界面状态。rememberSaveable可以在重组后保持状态。此外，rememberSaveble也可以在重新创建Activity和进程后保持状态
+
+
+
+#### 10、存储状态的方式
+
+##### 	添加到Bundle的所有数据类型都会自动保存。如果要保存无法添加到Bundle的内容，有以下几种选择
+
+###### 		1、Parcelize：最简单的解决方案是向对象添加@Parcelize注解，对象将变为可打包状态并且可以捆绑
+
+###### 		2、MapSaver：如果某种原因导致@Parcelize不合适，可以使用mapSaver定义自己的规则，规定如何将对象转换为系统可保存到Bundle的一组值。
+
+###### 		3、ListSaver：为了避免需要映射定义键，也可以使用listSaver并将其索引用作键
+
+![image-20220929093718977](C:\Users\Ywhuii\Documents\Jetpack Compose\代码图片示例\image-20220929093718977.png)
+
+![image-20220929095717939](C:\Users\Ywhuii\Documents\Jetpack Compose\代码图片示例\image-20220929095717939.png)
+
+![image-20220929104929279](C:\Users\Ywhuii\Documents\Jetpack Compose\代码图片示例\image-20220929104929279.png)
